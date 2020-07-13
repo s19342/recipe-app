@@ -14,7 +14,7 @@ class App extends Component {
     e.preventDefault();
 
     const api_call = await fetch(
-      `http://api.tvmaze.com/search/shows?q=${recipeName}`
+      `https://api.tvmaze.com/search/shows?q=${recipeName}`
     );
 
     const data = await api_call.json();

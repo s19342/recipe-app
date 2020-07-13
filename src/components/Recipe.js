@@ -9,7 +9,7 @@ class Recipe extends React.Component {
 
   componentDidMount = async () => {
     const title = this.props.location.state.recipe;
-    const req = await fetch(`http://api.tvmaze.com/search/shows?q=${title}`);
+    const req = await fetch(`https://api.tvmaze.com/search/shows?q=${title}`);
 
     const res = await req.json();
 
