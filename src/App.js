@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Form from "./components/Form";
+import Recipes from "./components/Recipes";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    recipes: [],
+  };
+
+  getRecipe = async (e) => {
+    const recipeName = e.target.elements.recipeName.value;
+
+    e.preventDefault();
+
+    const api_call = await fetch(
+      `http://api.tvmaze.com/search/shows?q=${recipeName}`
+    );
+
+    const data = await api_call.json();
+
+    this.setState({
+      recipes: data,
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Tv Show Search</h1>
+        </header>
+        <Form getRecipe={this.getRecipe} />
+        <Recipes recipes={this.state.recipes} />
+      </div>
+    );
+  }
 }
 
 export default App;
